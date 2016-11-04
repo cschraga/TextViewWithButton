@@ -41,22 +41,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6V-Jx-fgt">
-                                <rect key="frame" x="28" y="172" width="318.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="c6V-Jx-fgt" firstAttribute="top" secondItem="0C5-ZG-iDT" secondAttribute="bottom" constant="10" id="2a0-mN-eux"/>
                             <constraint firstItem="dve-Jd-VNc" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.85" id="8pW-2u-PNU"/>
-                            <constraint firstItem="c6V-Jx-fgt" firstAttribute="leading" secondItem="0C5-ZG-iDT" secondAttribute="leading" id="DBV-bB-MyF"/>
                             <constraint firstItem="0C5-ZG-iDT" firstAttribute="trailing" secondItem="Bud-nd-vA5" secondAttribute="trailing" id="F9T-tu-aor"/>
                             <constraint firstItem="dve-Jd-VNc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="LLg-7L-Ok9"/>
                             <constraint firstItem="Bud-nd-vA5" firstAttribute="top" secondItem="dve-Jd-VNc" secondAttribute="bottom" constant="20" id="NEv-6f-cKu"/>
-                            <constraint firstItem="c6V-Jx-fgt" firstAttribute="trailing" secondItem="0C5-ZG-iDT" secondAttribute="trailing" id="ZiW-Iy-PB8"/>
                             <constraint firstItem="0C5-ZG-iDT" firstAttribute="leading" secondItem="Bud-nd-vA5" secondAttribute="leading" id="aMS-SV-jME"/>
                             <constraint firstItem="dve-Jd-VNc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fme-1f-geM"/>
                             <constraint firstItem="Bud-nd-vA5" firstAttribute="trailing" secondItem="dve-Jd-VNc" secondAttribute="trailing" id="hvl-gQ-Yj5"/>
@@ -67,7 +58,6 @@
                     <connections>
                         <outlet property="heightConstraint" destination="3Ol-GH-ZK1" id="LT8-Ff-ue4"/>
                         <outlet property="idealHeightLabel" destination="Bud-nd-vA5" id="Fmx-aZ-R2L"/>
-                        <outlet property="offsetLabel" destination="c6V-Jx-fgt" id="UgT-o8-tzh"/>
                         <outlet property="statusLabel" destination="0C5-ZG-iDT" id="cfs-GS-zeP"/>
                         <outlet property="textViewWithButton" destination="dve-Jd-VNc" id="HHx-b4-LdP"/>
                     </connections>

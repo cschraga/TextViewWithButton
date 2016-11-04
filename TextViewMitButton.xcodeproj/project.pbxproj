@@ -15,6 +15,7 @@
 		F3F93ED11DCB738100BB8BEB /* TextViewMitButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F93ED01DCB738100BB8BEB /* TextViewMitButtonTests.swift */; };
 		F3F93EDC1DCB73AD00BB8BEB /* TextViewWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F93EDB1DCB73AD00BB8BEB /* TextViewWithButton.swift */; };
 		F3F93EDD1DCB818C00BB8BEB /* TextViewWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F93EDB1DCB73AD00BB8BEB /* TextViewWithButton.swift */; };
+		F3F93EE11DCCBD8400BB8BEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F93EBD1DCB738000BB8BEB /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3F93EE11DCCBD8400BB8BEB /* ViewController.swift in Sources */,
 				F3F93EDD1DCB818C00BB8BEB /* TextViewWithButton.swift in Sources */,
 				F3F93ED11DCB738100BB8BEB /* TextViewMitButtonTests.swift in Sources */,
 			);
@@ -418,6 +420,7 @@
 				F3F93ED71DCB738100BB8BEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F3F93ED81DCB738100BB8BEB /* Build configuration list for PBXNativeTarget "TextViewMitButtonTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +429,7 @@
 				F3F93EDA1DCB738100BB8BEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

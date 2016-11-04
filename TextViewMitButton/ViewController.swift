@@ -13,7 +13,6 @@ class ViewController: UIViewController, TextViewWithButtonDelegate {
     @IBOutlet weak var textViewWithButton: TextViewWithButton!
     @IBOutlet weak var idealHeightLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var offsetLabel: UILabel!
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     var changingSizeFlag = false
@@ -23,6 +22,7 @@ class ViewController: UIViewController, TextViewWithButtonDelegate {
         
         textViewWithButton.lineWidth = 2.0
         textViewWithButton.lineColor = UIColor.green
+        textViewWithButton.bgColor   = UIColor(white: 0.75, alpha: 0.25)
         textViewWithButton.delegate  = self
         heightConstraint.constant = textViewWithButton.idealHeight
         
@@ -32,12 +32,7 @@ class ViewController: UIViewController, TextViewWithButtonDelegate {
         statusLabel.text = "Status: Clicked"
     }
     
-    func textViewTextChanged(_ view: TextViewWithButton, newText text: String) {
-        statusLabel.text = "Status: Editing"
-        offsetLabel.text = "Offset: \(view.offset)"
-    }
-    
-    func textViewWithButtonHeight(_ view: TextViewWithButton, preferredHeight height: CGFloat) {
+    func textViewWithButtonNewHeight(_ view: TextViewWithButton, preferredHeight height: CGFloat) {
         idealHeightLabel.text = "Ideal Height: \(textViewWithButton.idealHeight)"
         let h = textViewWithButton.idealHeight
         if heightConstraint.constant != h {
@@ -46,8 +41,8 @@ class ViewController: UIViewController, TextViewWithButtonDelegate {
         }
     }
     
-    func textViewWithButtonFinished(_ view: TextViewWithButton) {
-        statusLabel.text = "Status: Finished"
+    func textViewWithButtonEditing(_ view: TextViewWithButton, editing: Bool) {
+        statusLabel.text = editing ? "Status: Editing" : "Status: Not Editing"
     }
     
     override func didReceiveMemoryWarning() {

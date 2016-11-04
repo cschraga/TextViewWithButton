@@ -10,29 +10,28 @@ import UIKit
 
 protocol TextViewWithButtonDelegate {
     func textViewButtonClicked(_ view: TextViewWithButton)
-    func textViewTextChanged(_ view: TextViewWithButton, newText text: String)
-    func textViewWithButtonHeight(_ view: TextViewWithButton, preferredHeight height: CGFloat)
-    func textViewWithButtonFinished(_ view: TextViewWithButton)
+    func textViewWithButtonNewHeight(_ view: TextViewWithButton, preferredHeight height: CGFloat)
+    func textViewWithButtonEditing(_ view: TextViewWithButton, editing: Bool)
 }
 
 class TextViewWithButton: UIView, UITextViewDelegate {
-
+    
     //UI
     internal var textView: UITextView!
     internal var button: UIButton!
     
     //internal attributes
-    internal var _lineWidth: CGFloat = 0.0
-    internal var _roundedCorners: Bool = false
-    internal var _bgColor = UIColor.clear
-    internal var _lineColor = UIColor.clear
-    internal var _textColor = UIColor.gray
-    internal var _font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    internal var _minimumNumberOfLines = 2
-    internal var _maximumNumberOfLines = 6
-    internal var _defaultText = "What's on your mind?"
-    internal var _image = UIImage(named: "submit")
-    internal var _cornerRadius: CGFloat = 3.0
+    fileprivate var _lineWidth: CGFloat = 0.0
+    fileprivate var _roundedCorners: Bool = false
+    fileprivate var _bgColor = UIColor.clear
+    fileprivate var _lineColor = UIColor.clear
+    fileprivate var _textColor = UIColor.gray
+    fileprivate var _font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    fileprivate var _minimumNumberOfLines = 2
+    fileprivate var _maximumNumberOfLines = 6
+    fileprivate var _defaultText = "What's on your mind?"
+    fileprivate var _image = UIImage(named: "submit")
+    fileprivate var _cornerRadius: CGFloat = 3.0
     
     //delegate
     var delegate: TextViewWithButtonDelegate?
@@ -67,10 +66,8 @@ class TextViewWithButton: UIView, UITextViewDelegate {
             return _bgColor
         }
         set(new){
-            if new != _bgColor {
-                _bgColor = new
-                setNeedsDisplay()
-            }
+            _bgColor = new
+            setNeedsDisplay()
         }
     }
     var lineColor: UIColor {
@@ -78,10 +75,8 @@ class TextViewWithButton: UIView, UITextViewDelegate {
             return _lineColor
         }
         set(new){
-            if new != _lineColor {
-                _lineColor = new
-                setNeedsDisplay()
-            }
+            _lineColor = new
+            setNeedsDisplay()
         }
     }
     var textColor: UIColor {
@@ -101,7 +96,7 @@ class TextViewWithButton: UIView, UITextViewDelegate {
             if new != _font{
                 _font = new
                 textView.font = _font
-                delegate?.textViewWithButtonHeight(self, preferredHeight: idealHeight)
+                delegate?.textViewWithButtonNewHeight(self, preferredHeight: idealHeight)
             }
         }
     }
@@ -120,7 +115,7 @@ class TextViewWithButton: UIView, UITextViewDelegate {
                 return
             } else {
                 _minimumNumberOfLines = new
-                delegate?.textViewWithButtonHeight(self, preferredHeight: idealHeight)
+                delegate?.textViewWithButtonNewHeight(self, preferredHeight: idealHeight)
             }
         }
     }
@@ -139,7 +134,7 @@ class TextViewWithButton: UIView, UITextViewDelegate {
                 return
             } else {
                 _maximumNumberOfLines = new
-                delegate?.textViewWithButtonHeight(self, preferredHeight: idealHeight)
+                delegate?.textViewWithButtonNewHeight(self, preferredHeight: idealHeight)
             }
         }
     }
@@ -191,6 +186,18 @@ class TextViewWithButton: UIView, UITextViewDelegate {
             return idealHeight >= big
         }
     }
+    var text: String {
+        get{
+            return textView.text
+        }
+    }
+    func clear(){
+        textView.text = _defaultText
+    }
+    func resign(){
+        textView.resignFirstResponder()
+        self.resignFirstResponder()
+    }
     
     //lifecycle
     override init(frame: CGRect) {
@@ -212,6 +219,7 @@ class TextViewWithButton: UIView, UITextViewDelegate {
     internal func setup(){
         //group
         self.backgroundColor = UIColor.clear
+        self.isOpaque = false
         self.isUserInteractionEnabled = true
         
         //text view
@@ -257,20 +265,22 @@ class TextViewWithButton: UIView, UITextViewDelegate {
     //selectors
     func buttonPressed(_ button: UIButton){
         print("button pressed")
-        delegate?.textViewButtonClicked(self)
+        if textView.text != _defaultText{
+            delegate?.textViewButtonClicked(self)
+        }
         textView.endEditing(true)
     }
     
     //text view delegate
     func textViewDidChange(_ textView: UITextView) {
-        delegate?.textViewTextChanged(self, newText: textView.text)
-        delegate?.textViewWithButtonHeight(self, preferredHeight: idealHeight)
+        delegate?.textViewWithButtonNewHeight(self, preferredHeight: idealHeight)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == _defaultText {
             textView.text = ""
         }
+        delegate?.textViewWithButtonEditing(self, editing: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -278,22 +288,20 @@ class TextViewWithButton: UIView, UITextViewDelegate {
         if textView.text == "" {
             textView.text = _defaultText
         }
-        delegate?.textViewWithButtonFinished(self)
-        
+        delegate?.textViewWithButtonEditing(self, editing: false)
     }
     
     override func draw(_ rect: CGRect) {
         let ctx = UIGraphicsGetCurrentContext()!
+        let insetRect = rect.insetBy(dx: _lineWidth/2, dy: _lineWidth/2)
+        let drawPath = _roundedCorners ? UIBezierPath(roundedRect: insetRect, cornerRadius: _cornerRadius) : UIBezierPath(rect: insetRect)
         ctx.setStrokeColor(_lineColor.cgColor)
         ctx.setFillColor(_bgColor.cgColor)
         ctx.setLineWidth(_lineWidth)
+        ctx.addPath(drawPath.cgPath)
+        ctx.drawPath(using: .fillStroke)
         
-        let insetRect = rect.insetBy(dx: _lineWidth/2, dy: _lineWidth/2)
-        //let path = roundedCorners ? UIBezierPath : UIBezierPath(rect: <#T##CGRect#>)
-        let drawPath = _roundedCorners ? UIBezierPath(roundedRect: insetRect, cornerRadius: _cornerRadius) : UIBezierPath(rect: insetRect)
-        drawPath.stroke()
-        drawPath.fill()
     }
     
-
+    
 }
